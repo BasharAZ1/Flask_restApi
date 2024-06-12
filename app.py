@@ -1,42 +1,30 @@
-from flask import Flask,jsonify,request
+from flask import Flask
+from flask_login import LoginManager
+from routes import configure_routes
+from bson import ObjectId
+from db import users_collection,user_from_dict
 
+import os
 
 app = Flask(__name__)
 
-Books=[
-    {"id":1,"title":"1984","author":"George orwell"},
-    {"id":2,"title":"To kill a mockgenbird","author":"Harper Lee"}
-]
 
-@app.route("/api/books",methods=["GET"])
-def get_books():
-    return jsonify(Books)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
-@app.route("/api/books/<int:book_id>")
-def get_book(book_id):
-    book = next((book for book in Books if book["id"] == book_id), None)
-    return jsonify(book) if book else ("",404)
+configure_routes(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'  # Redirect to the login view if not authenticated
+login_manager.login_message = "צריכים להיות מחוברים כדי לגשת לדף זה"
 
-
-@app.route("/api/books/",methods=["POST"])
-def create_book():
-    new_book=request.get_json()
-    new_book["id"]=Books[-1]["id"]+1 if Books else 1
-    Books.append(new_book)
-    return jsonify(new_book),201
+@login_manager.user_loader
+def load_user(user_id):
+    user_data = users_collection.find_one({"_id": ObjectId(user_id)})
+    if user_data:
+        return user_from_dict(user_data)
+    return None
 
 
-
-
-@app.route("/api/books/<int:book_id>",methods=["PUT"])
-def update_book(book_id):
-    book = next((book for book in Books if book["id"] == book_id), None)
-    if book:
-        data=request.get_json()
-        book.update(data)
-        return jsonify(book)
-    return ("",404)
-    
-    
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run('0.0.0.0', port=5001, debug=True)
+    

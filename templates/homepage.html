@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}דף הבית{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% block content %}
+    <div class="page-layout">
+        <div class="form-side">
+            <div class="home-container" id='par'>
+                <div style="display: flex;">
+                    <h1>2,3 … ש ג ר</h1>
+                </div>
+                <p><strong>מי אנחנו?</strong></p>
+                <p>אנחנו צוות מנצח של בנות מכיתה ו׳ בבית ספר יסודי סאג׳ור.</p>
+                <p>במיזם תוכנית ״הטייסת״ תחת חסות קרן רמון, נתבקשנו השנה להתמקד בנושא המלחמה.</p>
+                <p>המיזם שלנו נקרא שתיים, שלוש.. ש ג ר שזה אתר רישום מיוחד לכפר שלנו שדרכו אפשר להירשם, כל אחד בתחומו ול״שגר״ סיוע בזמן אמת כשמבקש העזרה ״ישגר״ בקשה לעזרה.</p>
+                <p>מקווים שזה יתן מענה להרבה אנשים, כי תרומה, אחדות, אחווה, עזרה לזולת הם עיקר המוטו שלנו.</p>
+                <p><strong>בברכה ובאהבה רבה</strong></p>
+                <br>
+                <h3>הצוות המנצח</h3>
+                <ul class="team-members">
+                    <li>בשאר עלי</li>
+  
+                </ul>
+                <div class="images-layout">
+                    <img src="{{ url_for('static', filename='pictures/Ramon_Foundation.jpeg') }}" alt="Ramon_Foundation"/>
+                    <img src="{{ url_for('static', filename='pictures/airplane.jpeg') }}" alt="Another_Picture"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}רישום{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="page-layout">
+        <div class="form-side">
+            <div class="container">
+                <h2>רישום</h2>
+
+                <form method="POST" action="/register" class="sign-up-form" id='sign-up-form'>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        <div id="flash-messages">
+                            {% for message in messages %}
+                            <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endwith %}
+                    <div class="input-group">
+                        <label for="username">שם משתמש:</label>
+                        <input type="text" id="username" name="username" required value="{{ request.form.username|default('', true) }}">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phone_prefix">פלאפון להתקשרות:</label>
+                        <div class="phone-container flex-container">
+                            <input type="tel" id="phone" name="phone" required
+                                   pattern="\d{7}"
+                                   title="מספר הפלאפון חייב להיות באורך 7 ספרות אחרי הקידומת"
+                                   value="{{ request.form.phone|default('', true) }}">
+                            <select id="phone_prefix" name="phone_prefix" required>
+                                <option value="050" {% if request.form.phone_prefix == '050' %}selected{% endif %}>050</option>
+                                <option value="052" {% if request.form.phone_prefix == '052' %}selected{% endif %}>052</option>
+                                <option value="054" {% if request.form.phone_prefix == '054' %}selected{% endif %}>054</option>
+                                <option value="057" {% if request.form.phone_prefix == '057' %}selected{% endif %}>057</option>
+                                <option value="058" {% if request.form.phone_prefix == '058' %}selected{% endif %}>058</option>
+                                <option value="055" {% if request.form.phone_prefix == '055' %}selected{% endif %}>055</option>
+                                <option value="053" {% if request.form.phone_prefix == '053' %}selected{% endif %}>053</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">אימייל:</label>
+                        <input type="email" id="email" name="email" required value="{{ request.form.email|default('', true) }}">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">סיסמה:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="confirm_password">סיסמה חוזרת:</label>
+                        <input type="password" id="confirm_password" name="confirm_password" required>
+                    </div>
+
+                    <input type="submit" value="בצע רישום">
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById('sign-up-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+        
+            fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.error) {
+                    alert(result.error); 
+                } else {
+                    alert(result.message); 
+                    window.location.href = '/login'; 
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+        </script>
+        
+{% endblock content %}

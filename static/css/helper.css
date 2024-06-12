@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2fff4;
+}
+
+h1, h2 {
+    font-weight: bold;
+
+    text-align: center;
+    color: #2e8b57;
+
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+#helpers-list {
+    list-style-type: none;
+    padding: 20px;
+}
+
+#helpers-list li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #a9dfbf;
+    cursor: pointer;
+}
+
+#request-modal {
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+#request-modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    background-color: #2e8b57; /* Green button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #276644; /* Darker green on hover */
+}
+
+select, input[type="text"], textarea {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+
+.checklist{
+    display: flex;
+    align-items: center; /* Aligns content vertically */
+}
+
+
+/* Table styling */
+
+
+/* Table styling */
+table {
+    width: calc(100% - 40px); /* Subtract the padding from the width */
+    border-collapse: collapse;
+    margin: 20px;
+}
+
+/* Table header */
+th {
+    background-color: #2e8b57; /* Green */
+    color: white;
+    padding: 10px;
+
+}
+
+/* Table cells */
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+
+}
+
+/* Alternate row color */
+tr:nth-child(even) {
+    background-color: #f2fff4; /* Light green */
+}
+
+/* Hover effect */
+tr:hover {
+    background-color: #d1e9d1; /* Light green on hover */
+}
+
+
+img {
+    width: 60px;
+    height: 60px;
+    border: none;
+}
+
+.phone-container {
+    display: flex;
+    gap: 10px;
+}

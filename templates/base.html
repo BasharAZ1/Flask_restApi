@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}2..3..Shager App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/general.css') }}">
+    {% block head %}
+    {% endblock %}
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('homepage') }}">דף הבית</a></li>
+            {% if 'username' in session %}
+                <li>ברוך הבא, {{ session.username | default('אורח') }}</li>
+                    {% if session['user_type'] == 'recipient' %}
+                        <li><a href="{{ url_for('recipient', user_id=session['user_id']) }}">לוח עוזרים</a></li>
+                    {%endif%}
+                    {% if session['user_type'] == 'helper' %}
+                        <li><a href="{{ url_for('helper_list', helper_user=session['username']) }}">לוח התנדבות</a></li>
+                    {%endif%}
+<!--                {% if session.get('is_admin', False) %}-->
+<!--                    <li><a href="{{ url_for('add_stadium') }}">Add Stadium</a></li>-->
+<!--                {% endif %}-->
+                <li><a href="{{ url_for('logout') }}">התנתקות</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">התחברות</a></li>
+                <li><a href="{{ url_for('register') }}">הרשמה</a></li>
+            {% endif %}
+            <!-- Add more links as needed -->
+        </ul>
+    </nav>
+
+    <div id="content">
+        {% block content %}
+        <!-- Content overridden by child templates will appear here -->
+        {% endblock content %}
+    </div>
+
+   <!-- <footer class="{% block footer_class %}{% endblock footer_class %}">
+        <p>© 2024 2..3..shager! App. All rights reserved.</p>
+    </footer>
+-->
+</body>
+</html>

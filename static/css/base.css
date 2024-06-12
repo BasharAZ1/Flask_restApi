@@ -1,0 +1,100 @@
+/* Reset margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: rgba(0, 131, 0, 0.8);
+    color: white;
+    padding: 15px 0; /* Increased padding */
+    text-align: center;
+    border-radius: 10px; /* Rounded corners */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #ddd;
+}
+
+#content {
+    margin-top: 20px;
+}
+
+footer, .home-footer, .login-footer, .register-footer{
+    background-color: rgba(0, 131, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    border-radius: 10px;
+    font-style: italic;
+}
+
+footer p {
+    margin: 0;
+}
+
+.login-footer, .register-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+label {
+    color: #000
+    font-weight: bold;
+}
+
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.checklist{
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 368px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 3rem; /* Decrease font size for smaller screens */
+    }
+    p {
+        font-size: 2rem; /* Decrease font size for smaller screens */
+    }
+    label {
+        font-size: 2rem; /* Decrease font size for smaller screens */
+    }
+}
+
+
+@media (max-width: 276px) {
+    h1 {
+        font-size: 2rem; /* Further decrease font size for extra small screens */
+    }
+    p {
+        font-size: 1.5rem; /* Further decrease font size for extra small screens */
+    }
+}
