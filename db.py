@@ -49,11 +49,10 @@ def user_from_dict(user_dict):
         username=user_dict['username'],
         phone=user_dict['phone'],
         password=user_dict['password_hash'],
-        user_type=UserType[user_dict['user_type']]
+        email=user_dict['email']
+
     )
     user.set_id(user_dict['_id'])
-    user.is_available = user_dict['is_available']
-    user.services = user_dict['services']
     return user
 
 

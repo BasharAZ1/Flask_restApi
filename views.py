@@ -8,3 +8,6 @@ from bson.objectid import ObjectId
 
 def homepage():
     return render_template('homepage.html')
+
+def welcome():
+    return render_template('welcome.html')

@@ -7,7 +7,7 @@
             <div class="container">
                 <h2>התחברות</h2>
 
-                <form method="POST" action="/login" class="sign-in-form">
+                <form id="sign-in-form" method="POST" action="/login" class="sign-in-form">
                   {% with messages = get_flashed_messages() %}
                     {% if messages %}
                       <div id="flash-messages">
@@ -34,4 +34,32 @@
             </div>
         </div>
     </div>
+    <script>
+      document.getElementById('sign-in-form').addEventListener('submit', function(event) {
+          event.preventDefault();
+          
+          const formData = new FormData(this);
+          const data = Object.fromEntries(formData.entries());
+      
+          fetch('/login', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(result => {
+              if (result.error) {
+                  alert(result.error); 
+              } else {
+                  alert(result.message); 
+                  window.location.href = '/dashboard'; 
+              }
+          })
+          .catch(error => console.error('Error:', error));
+      });
+      </script>
+      
+      </script>
 {% endblock content %}

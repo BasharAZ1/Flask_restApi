@@ -13,8 +13,9 @@ def logout():
 
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
 
         user_dict = find_user_by_username(username)
         if user_dict and check_user_password(username, password):
@@ -23,15 +24,14 @@ def login():
             session['username'] = user.username
             session['phone'] = user.phone
             session['user_id'] = str(user._id)
-            session['user_type'] = user.user_type.value
             session['is_logged_in'] = True
             login_user(user)
+
+            return jsonify({"message": "Login successful"}), 200
         else:
-            flash('שם משתמש או סיסמה שגויים')
-            return render_template('login.html', username=username)
+            return jsonify({"error": "Invalid username or password"}), 401
 
     return render_template('login.html')
-
 
 def is_password_legal(password):
     if len(password) < 8:
